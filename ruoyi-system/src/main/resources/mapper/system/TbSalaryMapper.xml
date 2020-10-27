@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TbSalaryMapper">
+    
+    <resultMap type="TbSalary" id="TbSalaryResult">
+        <result property="id"    column="id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="attendDay"    column="attend_day"    />
+        <result property="assessNum"    column="assess_num"    />
+        <result property="basicSalary"    column="basic_salary"    />
+        <result property="meritSalary"    column="merit_salary"    />
+        <result property="oughtTotalSalary"    column="ought_total_salary"    />
+        <result property="oughtBasicSalary"    column="ought_basic_salary"    />
+        <result property="oughtMeritSalary"    column="ought_merit_salary"    />
+        <result property="grants"    column="grants"    />
+        <result property="otherGrants"    column="other_grants"    />
+        <result property="oughtdeductSalary"    column="oughtdeduct_salary"    />
+        <result property="attendPay"    column="attend_pay"    />
+        <result property="personAgePay"    column="person_age_pay"    />
+        <result property="companyAgePay"    column="company_age_pay"    />
+        <result property="personMedialPay"    column="person_medial_pay"    />
+        <result property="companyMedialPay"    column="company_medial_pay"    />
+        <result property="personUnemployPay"    column="person_unemploy_pay"    />
+        <result property="companyUnemployPay"    column="company_unemploy_pay"    />
+        <result property="personReserveFund"    column="person_reserve_fund"    />
+        <result property="companyReserveFund"    column="company_reserve_fund"    />
+        <result property="mealPay"    column="meal_pay"    />
+        <result property="personTax"    column="person_tax"    />
+        <result property="realTotalSalary"    column="real_total_salary"    />
+        <result property="salaryYear"    column="salary_year"    />
+        <result property="salaryMonth"    column="salary_month"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectTbSalaryVo">
+        select id, user_name, attend_day, assess_num, basic_salary, merit_salary, ought_total_salary, ought_basic_salary, ought_merit_salary, grants, other_grants, oughtdeduct_salary, attend_pay, person_age_pay, company_age_pay, person_medial_pay, company_medial_pay, person_unemploy_pay, company_unemploy_pay, person_reserve_fund, company_reserve_fund, meal_pay, person_tax, real_total_salary, salary_year, salary_month, create_date, remark from tb_salary
+    </sql>
+
+    <select id="selectTbSalaryList" parameterType="TbSalary" resultMap="TbSalaryResult">
+        <include refid="selectTbSalaryVo"/>
+        <where>  
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="attendDay != null "> and attend_day = #{attendDay}</if>
+            <if test="assessNum != null "> and assess_num = #{assessNum}</if>
+            <if test="basicSalary != null "> and basic_salary = #{basicSalary}</if>
+            <if test="meritSalary != null "> and merit_salary = #{meritSalary}</if>
+            <if test="oughtTotalSalary != null "> and ought_total_salary = #{oughtTotalSalary}</if>
+            <if test="oughtBasicSalary != null "> and ought_basic_salary = #{oughtBasicSalary}</if>
+            <if test="oughtMeritSalary != null "> and ought_merit_salary = #{oughtMeritSalary}</if>
+            <if test="grants != null "> and grants = #{grants}</if>
+            <if test="otherGrants != null "> and other_grants = #{otherGrants}</if>
+            <if test="oughtdeductSalary != null "> and oughtdeduct_salary = #{oughtdeductSalary}</if>
+            <if test="attendPay != null "> and attend_pay = #{attendPay}</if>
+            <if test="personAgePay != null "> and person_age_pay = #{personAgePay}</if>
+            <if test="companyAgePay != null "> and company_age_pay = #{companyAgePay}</if>
+            <if test="personMedialPay != null "> and person_medial_pay = #{personMedialPay}</if>
+            <if test="companyMedialPay != null "> and company_medial_pay = #{companyMedialPay}</if>
+            <if test="personUnemployPay != null "> and person_unemploy_pay = #{personUnemployPay}</if>
+            <if test="companyUnemployPay != null "> and company_unemploy_pay = #{companyUnemployPay}</if>
+            <if test="personReserveFund != null "> and person_reserve_fund = #{personReserveFund}</if>
+            <if test="companyReserveFund != null "> and company_reserve_fund = #{companyReserveFund}</if>
+            <if test="mealPay != null "> and meal_pay = #{mealPay}</if>
+            <if test="personTax != null "> and person_tax = #{personTax}</if>
+            <if test="realTotalSalary != null "> and real_total_salary = #{realTotalSalary}</if>
+            <if test="salaryYear != null "> and salary_year = #{salaryYear}</if>
+            <if test="salaryMonth != null "> and salary_month = #{salaryMonth}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbSalaryById" parameterType="Long" resultMap="TbSalaryResult">
+        <include refid="selectTbSalaryVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTbSalary" parameterType="TbSalary" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_salary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="attendDay != null">attend_day,</if>
+            <if test="assessNum != null">assess_num,</if>
+            <if test="basicSalary != null">basic_salary,</if>
+            <if test="meritSalary != null">merit_salary,</if>
+            <if test="oughtTotalSalary != null">ought_total_salary,</if>
+            <if test="oughtBasicSalary != null">ought_basic_salary,</if>
+            <if test="oughtMeritSalary != null">ought_merit_salary,</if>
+            <if test="grants != null">grants,</if>
+            <if test="otherGrants != null">other_grants,</if>
+            <if test="oughtdeductSalary != null">oughtdeduct_salary,</if>
+            <if test="attendPay != null">attend_pay,</if>
+            <if test="personAgePay != null">person_age_pay,</if>
+            <if test="companyAgePay != null">company_age_pay,</if>
+            <if test="personMedialPay != null">person_medial_pay,</if>
+            <if test="companyMedialPay != null">company_medial_pay,</if>
+            <if test="personUnemployPay != null">person_unemploy_pay,</if>
+            <if test="companyUnemployPay != null">company_unemploy_pay,</if>
+            <if test="personReserveFund != null">person_reserve_fund,</if>
+            <if test="companyReserveFund != null">company_reserve_fund,</if>
+            <if test="mealPay != null">meal_pay,</if>
+            <if test="personTax != null">person_tax,</if>
+            <if test="realTotalSalary != null">real_total_salary,</if>
+            <if test="salaryYear != null">salary_year,</if>
+            <if test="salaryMonth != null">salary_month,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="attendDay != null">#{attendDay},</if>
+            <if test="assessNum != null">#{assessNum},</if>
+            <if test="basicSalary != null">#{basicSalary},</if>
+            <if test="meritSalary != null">#{meritSalary},</if>
+            <if test="oughtTotalSalary != null">#{oughtTotalSalary},</if>
+            <if test="oughtBasicSalary != null">#{oughtBasicSalary},</if>
+            <if test="oughtMeritSalary != null">#{oughtMeritSalary},</if>
+            <if test="grants != null">#{grants},</if>
+            <if test="otherGrants != null">#{otherGrants},</if>
+            <if test="oughtdeductSalary != null">#{oughtdeductSalary},</if>
+            <if test="attendPay != null">#{attendPay},</if>
+            <if test="personAgePay != null">#{personAgePay},</if>
+            <if test="companyAgePay != null">#{companyAgePay},</if>
+            <if test="personMedialPay != null">#{personMedialPay},</if>
+            <if test="companyMedialPay != null">#{companyMedialPay},</if>
+            <if test="personUnemployPay != null">#{personUnemployPay},</if>
+            <if test="companyUnemployPay != null">#{companyUnemployPay},</if>
+            <if test="personReserveFund != null">#{personReserveFund},</if>
+            <if test="companyReserveFund != null">#{companyReserveFund},</if>
+            <if test="mealPay != null">#{mealPay},</if>
+            <if test="personTax != null">#{personTax},</if>
+            <if test="realTotalSalary != null">#{realTotalSalary},</if>
+            <if test="salaryYear != null">#{salaryYear},</if>
+            <if test="salaryMonth != null">#{salaryMonth},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbSalary" parameterType="TbSalary">
+        update tb_salary
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="attendDay != null">attend_day = #{attendDay},</if>
+            <if test="assessNum != null">assess_num = #{assessNum},</if>
+            <if test="basicSalary != null">basic_salary = #{basicSalary},</if>
+            <if test="meritSalary != null">merit_salary = #{meritSalary},</if>
+            <if test="oughtTotalSalary != null">ought_total_salary = #{oughtTotalSalary},</if>
+            <if test="oughtBasicSalary != null">ought_basic_salary = #{oughtBasicSalary},</if>
+            <if test="oughtMeritSalary != null">ought_merit_salary = #{oughtMeritSalary},</if>
+            <if test="grants != null">grants = #{grants},</if>
+            <if test="otherGrants != null">other_grants = #{otherGrants},</if>
+            <if test="oughtdeductSalary != null">oughtdeduct_salary = #{oughtdeductSalary},</if>
+            <if test="attendPay != null">attend_pay = #{attendPay},</if>
+            <if test="personAgePay != null">person_age_pay = #{personAgePay},</if>
+            <if test="companyAgePay != null">company_age_pay = #{companyAgePay},</if>
+            <if test="personMedialPay != null">person_medial_pay = #{personMedialPay},</if>
+            <if test="companyMedialPay != null">company_medial_pay = #{companyMedialPay},</if>
+            <if test="personUnemployPay != null">person_unemploy_pay = #{personUnemployPay},</if>
+            <if test="companyUnemployPay != null">company_unemploy_pay = #{companyUnemployPay},</if>
+            <if test="personReserveFund != null">person_reserve_fund = #{personReserveFund},</if>
+            <if test="companyReserveFund != null">company_reserve_fund = #{companyReserveFund},</if>
+            <if test="mealPay != null">meal_pay = #{mealPay},</if>
+            <if test="personTax != null">person_tax = #{personTax},</if>
+            <if test="realTotalSalary != null">real_total_salary = #{realTotalSalary},</if>
+            <if test="salaryYear != null">salary_year = #{salaryYear},</if>
+            <if test="salaryMonth != null">salary_month = #{salaryMonth},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbSalaryById" parameterType="Long">
+        delete from tb_salary where id = #{id}
+    </delete>
+
+    <delete id="deleteTbSalaryByIds" parameterType="String">
+        delete from tb_salary where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
